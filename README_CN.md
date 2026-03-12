@@ -204,6 +204,8 @@ bash CLI-Anything/qoder-plugin/setup-qodercli.sh
 ```
 </details>
 
+<details>
+
 <summary><h4 id="-codex">⚡ Codex <sup><code>实验性</code></sup> <sup><code>社区贡献</code></sup></h4></summary>
 
 **第一步：安装 Skill**

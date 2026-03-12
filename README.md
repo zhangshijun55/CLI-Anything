@@ -203,7 +203,9 @@ This registers the cli-anything plugin in `~/.qoder.json`. Start a new Qodercli 
 /cli-anything:validate ./gimp
 ```
 </details>
-  
+
+<details>
+
 <summary><h4 id="-codex">⚡ Codex <sup><code>Experimental</code></sup> <sup><code>Community</code></sup></h4></summary>
 
 **Step 1: Install the Skill**
