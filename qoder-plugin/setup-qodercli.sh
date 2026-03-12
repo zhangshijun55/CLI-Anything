@@ -23,7 +23,12 @@ if [ $# -ge 1 ]; then
     fi
 else
     # Default to cli-anything-plugin relative to qoder-plugin directory
-    PLUGIN_DIR="$(cd "${SCRIPT_DIR}/../cli-anything-plugin" && pwd)"
+    if ! PLUGIN_DIR="$(cd "${SCRIPT_DIR}/../cli-anything-plugin" 2>/dev/null && pwd)"; then
+        echo -e "${YELLOW}Error: Could not find cli-anything-plugin directory at ${SCRIPT_DIR}/../cli-anything-plugin${NC}" >&2
+        echo -e "${YELLOW}Please provide an explicit plugin path:${NC}" >&2
+        echo -e "${YELLOW}  bash setup-qodercli.sh /path/to/cli-anything-plugin${NC}" >&2
+        exit 1
+    fi
 fi
 
 # Validate plugin directory
@@ -90,6 +95,9 @@ if [ -f "${QODER_CONFIG}" ]; then
         echo -e "${GREEN}✓ Plugin already registered in ${QODER_CONFIG}${NC}"
     else
         # Add plugin to existing config
+        # Backup original config before modification
+        cp "${QODER_CONFIG}" "${QODER_CONFIG}.bak"
+        echo -e "  Backup saved to ${QODER_CONFIG}.bak"
         # Create temp file in same directory for atomic mv on same filesystem
         TMP_CONFIG=$(mktemp "${CONFIG_DIR}/.qoder.json.XXXXXX")
         jq --arg path "${PLUGIN_DIR}" '
